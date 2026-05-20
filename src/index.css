@@ -1,0 +1,67 @@
+:root {
+  --bg-main: #0b0a0f;       /* Deep Obsidian */
+  --bg-card: #121118;       /* Vault Violet-Black */
+  --bg-card-hover: #171622;
+  --accent: #8b5cf6;        /* Royal Violet */
+  --accent-glow: rgba(139, 92, 246, 0.15);
+  --text-main: #f8fafc;     /* Crisp Silver White */
+  --text-muted: #94a3b8;    /* Slate Muted Gray */
+  --border: #232130;        /* Subtle Metallic Border */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom layout presets for mock subpages */
+.page-layout {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 4rem;
+}
+
+.animate-fade {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
