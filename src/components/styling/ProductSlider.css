@@ -1,5 +1,4 @@
-/* --- CUSTOM SLIDER --- */
-.slider-container {
+.ps-container {
   position: relative;
   aspect-ratio: 16 / 12;
   background: #050406;
@@ -9,13 +8,12 @@
   border-right: 1px solid var(--border);
   touch-action: pan-y;
   
-  /* FIXED: Caps the slider width on desktop so it leaves room for text on intermediate screens */
   width: 100%;
   max-width: 500px;
-  justify-self: end; /* Keeps it neatly against the center divider */
+  justify-self: end;
 }
 
-.slider-image {
+.ps-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -23,11 +21,11 @@
   -webkit-user-drag: none;
 }
 
-.slider-image.clickable {
+.ps-image.ps-clickable {
   cursor: zoom-in;
 }
 
-.slider-arrow {
+.ps-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -46,22 +44,22 @@
   user-select: none;
 }
 
-.slider-arrow:hover {
+.ps-arrow:hover {
   background: var(--accent);
   border-color: var(--accent);
 }
 
-.slider-arrow.prev { left: 1rem; }
-.slider-arrow.next { right: 1rem; }
+.ps-arrow.ps-prev { left: 1rem; }
+.ps-arrow.ps-next { right: 1rem; }
 
-.slider-dots {
+.ps-dots {
   position: absolute;
   bottom: 1.25rem;
   display: flex;
   gap: 0.5rem;
 }
 
-.dot {
+.ps-dot {
   width: 8px;
   height: 8px;
   background: rgba(255, 255, 255, 0.3);
@@ -70,20 +68,19 @@
   transition: background 0.2s, transform 0.2s;
 }
 
-.dot.active {
+.ps-dot.ps-active {
   background: var(--accent);
   transform: scale(1.2);
 }
 
-/* --- RESPONSIVENESS --- */
 @media (max-width: 768px) {
-  .slider-container {
+  .ps-container {
     border-right: none;
     border-bottom: 1px solid var(--border);
-    max-width: 100%; /* Allows it to take full width when stacked on mobile */
+    max-width: 100%;
   }
   
-  .slider-arrow {
+  .ps-arrow {
     display: none; 
   }
 }

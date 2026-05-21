@@ -1,38 +1,38 @@
-import '../styling/ProductLightbox.css';
+import './styling/ProductLightbox.css';
 
 export const ProductLightbox = ({ isOpen, images, currentIdx, name, onNext, onPrev, onSelectIdx, onTouchStart, onTouchEnd, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="lightbox-overlay" onClick={onClose}>
-      <div className="lightbox-window" onClick={(e) => e.stopPropagation()}>
-        <div className="lightbox-top-bar">
-          <span className="lightbox-title">{name} — Viewport Expand</span>
-          <button className="close-lightbox-btn" onClick={onClose}>&times;</button>
+    <div className="lb-overlay" onClick={onClose}>
+      <div className="lb-window" onClick={(e) => e.stopPropagation()}>
+        <div className="lb-top-bar">
+          <span className="lb-title">{name} — Viewport Expand</span>
+          <button className="lb-close-btn" onClick={onClose}>&times;</button>
         </div>
         
         <div 
-          className="lightbox-content-wrapper"
+          className="lb-content-wrapper"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
           <img 
             src={images[currentIdx].full} 
             alt={name} 
-            className="lightbox-image clickable" 
+            className="lb-image lb-clickable" 
             onClick={onClose}
           />
           
           {images.length > 1 && (
             <>
-              <button className="lightbox-arrow prev" onClick={onPrev}>&#8249;</button>
-              <button className="lightbox-arrow next" onClick={onNext}>&#8250;</button>
+              <button className="lb-arrow lb-prev" onClick={onPrev}>&#8249;</button>
+              <button className="lb-arrow lb-next" onClick={onNext}>&#8250;</button>
               
-              <div className="lightbox-dots">
+              <div className="lb-dots">
                 {images.map((_, idx) => (
                   <span 
                     key={idx} 
-                    className={`lightbox-dot ${idx === currentIdx ? 'active' : ''}`}
+                    className={`lb-dot ${idx === currentIdx ? 'lb-active' : ''}`}
                     onClick={() => onSelectIdx(idx)}
                   />
                 ))}

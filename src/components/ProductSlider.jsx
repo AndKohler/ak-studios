@@ -1,29 +1,29 @@
-import '../styling/ProductSlider.css';
+import './styling/ProductSlider.css';
 
 export const ProductSlider = ({ images, currentIdx, name, onNext, onPrev, onSelectIdx, onTouchStart, onTouchEnd, onOpenLightbox }) => {
   return (
     <div 
-      className="slider-container"
+      className="ps-container"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
       <img 
         src={images[currentIdx].fit} 
         alt={name} 
-        className="slider-image clickable" 
+        className="ps-image ps-clickable" 
         onClick={onOpenLightbox}
       />
       
       {images.length > 1 && (
         <>
-          <button className="slider-arrow prev" onClick={onPrev}>&#8249;</button>
-          <button className="slider-arrow next" onClick={onNext}>&#8250;</button>
+          <button className="ps-arrow ps-prev" onClick={onPrev}>&#8249;</button>
+          <button className="ps-arrow ps-next" onClick={onNext}>&#8250;</button>
           
-          <div className="slider-dots">
+          <div className="ps-dots">
             {images.map((_, idx) => (
               <span 
                 key={idx} 
-                className={`dot ${idx === currentIdx ? 'active' : ''}`}
+                className={`ps-dot ${idx === currentIdx ? 'ps-active' : ''}`}
                 onClick={() => onSelectIdx(idx)}
               />
             ))}

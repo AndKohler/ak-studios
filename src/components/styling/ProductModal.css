@@ -1,5 +1,4 @@
-/* --- MODAL WINDOW --- */
-.modal-overlay {
+.pm-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +14,7 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-.modal-window {
+.pm-window {
   background: var(--bg-card);
   border: 1px solid var(--border);
   max-width: 850px;
@@ -25,7 +24,7 @@
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.close-modal-btn {
+.pm-close-btn {
   position: absolute;
   top: 1.25rem;
   right: 1.5rem;
@@ -38,36 +37,35 @@
   transition: color 0.2s ease;
 }
 
-.close-modal-btn:hover {
+.pm-close-btn:hover {
   color: var(--text-main);
 }
 
-.modal-grid {
+.pm-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   align-items: stretch;
 }
 
-/* --- MODAL TEXT INFO CONTENT --- */
-.modal-info-panel {
-  display: block; 
+.pm-info-panel {
+  display: block;
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
 }
 
-.modal-panel-wrapper {
+.pm-panel-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 1.5rem; 
+  padding: 1.5rem;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.modal-text-content {
+.pm-text-content {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -75,7 +73,7 @@
   padding-right: 4px;
 }
 
-.product-category {
+.pm-category {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -85,28 +83,36 @@
   margin-bottom: 0.5rem;
 }
 
-.modal-product-name {
+.pm-product-name {
   font-size: 2rem;
   font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 0.5rem;
 }
 
-.modal-product-price {
+.pm-product-price {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #00a86b; 
+  color: #00a86b;
   display: block;
   margin-bottom: 1.5rem;
 }
 
-.modal-product-description {
+.pm-product-description {
   color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-.modal-action-button {
+.pm-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.pm-action-button {
+  flex: 1;
   background: var(--accent);
   color: #ffffff;
   border: none;
@@ -115,57 +121,35 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
-  width: 100%;
   border-radius: 8px;
   position: relative;
   overflow: hidden;
-  flex-shrink: 0;
   transition: background-color 0.2s, filter 0.2s, transform 0.1s;
+  font-family: inherit;
 }
 
-.modal-action-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.4) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: skewX(-25deg);
-}
-
-.modal-action-button:hover:not(:disabled) {
+.pm-action-button:hover {
   filter: brightness(1.15);
 }
 
-.modal-action-button:hover:not(:disabled)::before {
-  animation: shineGlare 0.65s ease-in-out;
-}
-
-.modal-action-button:active:not(:disabled) {
+.pm-action-button:active {
   transform: scale(0.98);
 }
 
-.modal-action-button:disabled {
-  background: #22212c;
-  color: #555;
-  cursor: not-allowed;
-  border: 1px solid var(--border);
+.pm-action-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-25deg);
+  transition: left 0.5s ease-out;
 }
 
-/* --- ANIMATIONS --- */
-@keyframes shineGlare {
-  0% {
-    left: -150%;
-  }
-  100% {
-    left: 150%;
-  }
+.pm-action-button:hover::after {
+  left: 200%;
 }
 
 @keyframes slideUp {

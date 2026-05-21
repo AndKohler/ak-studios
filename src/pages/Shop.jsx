@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { ProductCard } from '../components/ProductCard';
 import { FAKE_PRODUCTS } from '../data'; 
-import '../styling/Shop.css';
+import './styling/Shop.css';
 
-export const Shop = ({ onAddToCart }) => {
+export const Shop = ({ cart = [], onAddToCart }) => {
   const [products] = useState(FAKE_PRODUCTS);
 
   return (
@@ -15,13 +15,19 @@ export const Shop = ({ onAddToCart }) => {
       </header>
 
       <main className="shop-grid">
-        {products.map(product => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-            onAddToCart={() => onAddToCart(product)} 
-          />
-        ))}
+        {products.map(product => {
+          const cartItem = cart.find(item => item.id === product.id);
+          const cartQuantity = cartItem ? cartItem.quantity : 0;
+
+          return (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              cartQuantity={cartQuantity}
+              onAddToCart={onAddToCart} 
+            />
+          );
+        })}
       </main>
     </div>
   );

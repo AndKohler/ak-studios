@@ -1,23 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ProductSlider } from './ProductSlider';
 import { ProductLightbox } from './ProductLightbox';
-import '../styling/ProductModal.css';
+import './styling/ProductModal.css';
 
-export const ProductModal = ({ isOpen, onClose, product, onAddToCart, triggerToast }) => {
+export const ProductModal = ({ isOpen, onClose, product, cartQuantity = 0, onAddToCart, triggerToast }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
+  const [qty, setQty] = useState(1);
+
+  useEffect(() => {
+    if (isOpen) {
+      setQty(cartQuantity > 0 ? cartQuantity : 1);
+    }
+  }, [isOpen, cartQuantity]);
 
   if (!isOpen) return null;
 
   const handleNextImage = (e) => {
     if (e) e.stopPropagation();
-    setCurrentImgIndex((prev) => (prev + 1) % product.images.length);
+    setCurrentImgIndex((prev) => (prev + 1) % product.galleryImages.length);
   };
 
   const handlePrevImage = (e) => {
     if (e) e.stopPropagation();
-    setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
+    setCurrentImgIndex((prev) => (prev - 1 + product.galleryImages.length) % product.galleryImages.length);
   };
 
   const handleTouchStart = (e) => {
@@ -25,18 +32,15 @@ export const ProductModal = ({ isOpen, onClose, product, onAddToCart, triggerToa
   };
 
   const handleTouchEnd = (e) => {
-    if (touchStartX === null || product.images.length <= 1) return;
-    
+    if (touchStartX === null || product.galleryImages.length <= 1) return;
     const touchEndX = e.changedTouches[0].clientX;
     const diffX = touchStartX - touchEndX;
     const swipeThreshold = 50;
-
     if (diffX > swipeThreshold) {
       handleNextImage();
     } else if (diffX < -swipeThreshold) {
       handlePrevImage();
     }
-    
     setTouchStartX(null);
   };
 
@@ -44,7 +48,11 @@ export const ProductModal = ({ isOpen, onClose, product, onAddToCart, triggerToa
     e.stopPropagation();
     if (!product.isAvailable) return;
     
-    onAddToCart(product); 
+    const qtyToAdd = qty - cartQuantity;
+    if (qtyToAdd !== 0 || cartQuantity === 0) {
+      onAddToCart({ ...product, quantity: qtyToAdd }); 
+    }
+    
     triggerToast();
     handleCloseModal();
   };
@@ -56,14 +64,13 @@ export const ProductModal = ({ isOpen, onClose, product, onAddToCart, triggerToa
 
   return (
     <>
-      <div className="modal-overlay" onClick={handleCloseModal}>
-        <div className="modal-window" onClick={(e) => e.stopPropagation()}>
-          <button className="close-modal-btn" onClick={handleCloseModal}>&times;</button>
+      <div className="pm-overlay" onClick={handleCloseModal}>
+        <div className="pm-window" onClick={(e) => e.stopPropagation()}>
+          <button className="pm-close-btn" onClick={handleCloseModal}>&times;</button>
           
-          <div className="modal-grid">
-            {/* ISOLATED IMAGE SLIDER PREVIEW */}
+          <div className="pm-grid">
             <ProductSlider 
-              images={product.images}
+              images={product.galleryImages}
               currentIdx={currentImgIndex}
               name={product.name}
               onNext={handleNextImage}
@@ -74,33 +81,39 @@ export const ProductModal = ({ isOpen, onClose, product, onAddToCart, triggerToa
               onOpenLightbox={() => setIsLightboxOpen(true)}
             />
 
-            {/* PRODUCT INFO PANEL */}
-            <div className="modal-info-panel">
-              <div className="modal-panel-wrapper">
-                <div className="modal-text-content">
-                  <span className="product-category">{product.category}</span>
-                  <h2 className="modal-product-name">{product.name}</h2>
-                  <span className="modal-product-price">${product.price.toFixed(2)}</span>
-                  <p className="modal-product-description">{product.description}</p>
+            <div className="pm-info-panel">
+              <div className="pm-panel-wrapper">
+                <div className="pm-text-content">
+                  <span className="pm-category">{product.category}</span>
+                  <h2 className="pm-product-name">{product.name}</h2>
+                  <span className="pm-product-price">${product.price.toFixed(2)}</span>
+                  <p className="pm-product-description">{product.description}</p>
                 </div>
 
-                <button 
-                  onClick={handleAddToCartClick} 
-                  className="modal-action-button"
-                  disabled={!product.isAvailable}
-                >
-                  {product.isAvailable ? 'Add to Cart' : 'Sold Out'}
-                </button>
+                <div className="pm-actions">
+                  <div className="ct-qty-controls">
+                    <button onClick={() => setQty(Math.max(1, qty - 1))}>-</button>
+                    <span>{qty}</span>
+                    <button onClick={() => setQty(Math.min(10, qty + 1))}>+</button>
+                  </div>
+                  
+                  <button 
+                    onClick={handleAddToCartClick} 
+                    className="pm-action-button"
+                    disabled={!product.isAvailable}
+                  >
+                    {product.isAvailable ? (cartQuantity > 0 ? 'Update Cart' : 'Add to Cart') : 'Sold Out'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ISOLATED LIGHTBOX SYSTEM */}
       <ProductLightbox 
         isOpen={isLightboxOpen}
-        images={product.images}
+        images={product.galleryImages}
         currentIdx={currentImgIndex}
         name={product.name}
         onNext={handleNextImage}

@@ -1,54 +1,62 @@
-import '../styling/Cart.css';
+import './styling/Cart.css';
 
-export const Cart = ({ cartItems = [], onRemoveFromCart, setCurrentPage }) => {
+export const Cart = ({ cartItems = [], onUpdateQuantity, onRemoveItem, setCurrentPage }) => {
   const isCartEmpty = cartItems.length === 0;
-
-  const totalCartPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const totalCartPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   return (
-    <div className="page-layout animate-fade">
-      <h1 className="page-title">Your Cart</h1>
+    <div className="ct-page-layout animate-fade">
+      <h1 className="ct-title">Your Cart</h1>
 
       {isCartEmpty ? (
-        <div className="cart-empty-state">
+        <div className="ct-empty-state">
           <p>Your cart is currently empty.</p>
-          <button className="action-button" onClick={() => setCurrentPage('shop')}>
+          <button className="ct-action-button" onClick={() => setCurrentPage('shop')}>
             Return to Shop
           </button>
         </div>
       ) : (
-        <div className="cart-container">
-          <div className="cart-items-list">
-            {cartItems.map((item, index) => (
-              <div key={`${item.id}-${index}`} className="cart-item-row">
-                <div className="cart-item-thumb-wrapper">
-                  <img src={item.images[0]} alt={item.name} className="cart-item-thumb" />
+        <div className="ct-container">
+          <div className="ct-items-list">
+            {cartItems.map((item) => (
+              <div key={item.id} className="ct-item-row">
+                <div className="ct-item-thumb-wrapper">
+                  <img src={item.galleryImages[0].fit} alt={item.name} className="ct-item-thumb" />
                 </div>
                 
-                <div className="cart-item-details">
-                  <h3 className="cart-item-name">{item.name}</h3>
-                  <span className="cart-item-category">{item.category}</span>
+                <div className="ct-item-details">
+                  <h3 className="ct-item-name">{item.name}</h3>
+                  <span className="ct-item-category">{item.category}</span>
                 </div>
 
-                <div className="cart-item-right">
-                  <span className="cart-item-price">${item.price.toFixed(2)}</span>
+                <div className="ct-item-right">
+                  {/* Trash Can Button positioned to the left of the black box */}
                   <button 
-                    className="cart-remove-btn" 
-                    onClick={() => onRemoveFromCart(index)}
+                    className="ct-remove-btn" 
+                    onClick={() => onRemoveItem(item.id)}
+                    title="Remove item"
                   >
-                    &times;
+                    <i className="fa-solid fa-trash"></i>
                   </button>
+
+                  <div className="ct-qty-controls">
+                    <button onClick={() => onUpdateQuantity(item.id, -1)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => onUpdateQuantity(item.id, 1)}>+</button>
+                  </div>
+                  
+                  <span className="ct-item-price">${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="cart-summary-panel">
-            <div className="summary-row">
+          <div className="ct-summary-panel">
+            <div className="ct-summary-row">
               <span>Total:</span>
-              <span className="summary-total-price">${totalCartPrice.toFixed(2)}</span>
+              <span className="ct-summary-total-price">${totalCartPrice.toFixed(2)}</span>
             </div>
-            <button className="action-button checkout-btn">
+            <button className="ct-action-button ct-checkout-btn">
               Continue to Checkout
             </button>
           </div>

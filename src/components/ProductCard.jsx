@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ProductModal } from './ProductModal';
-import '../styling/ProductCard.css';
+import './styling/ProductCard.css';
 
-export const ProductCard = ({ product, onAddToCart }) => {
+export const ProductCard = ({ product, cartQuantity, onAddToCart }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -11,22 +11,21 @@ export const ProductCard = ({ product, onAddToCart }) => {
     setTimeout(() => setToastMessage(""), 5000); 
   };
 
-  const handleModalAddToCart = () => {
-    onAddToCart(product);
+  const handleModalAddToCart = (productWithQty) => {
+    onAddToCart(productWithQty);
   };
 
   return (
     <>
-      <div className={`card ${!product.isAvailable ? 'sold-out' : ''}`} onClick={() => setIsModalOpen(true)}>
-        <div className="image-wrapper">
-          {/* Updated to use cardImage */}
-          <img src={product.cardImage} alt={product.name} className="card-image" />
-          {!product.isAvailable && <span className="sold-badge">Sold Out</span>}
+      <div className={`pc-card ${!product.isAvailable ? 'pc-sold-out' : ''}`} onClick={() => setIsModalOpen(true)}>
+        <div className="pc-image-wrapper">
+          <img src={product.cardImage} alt={product.name} className="pc-card-image" />
+          {!product.isAvailable && <span className="pc-sold-badge">Sold Out</span>}
         </div>
 
-        <div className="card-content-simple">
-          <h3 className="product-name-simple">{product.name}</h3>
-          <span className="product-price-simple">${product.price.toFixed(2)}</span>
+        <div className="pc-content-simple">
+          <h3 className="pc-product-name-simple">{product.name}</h3>
+          <span className="pc-product-price-simple">${product.price.toFixed(2)}</span>
         </div>
       </div>
 
@@ -34,15 +33,16 @@ export const ProductCard = ({ product, onAddToCart }) => {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         product={product} 
+        cartQuantity={cartQuantity}
         onAddToCart={handleModalAddToCart}
         triggerToast={triggerToast}
       />
 
       {toastMessage && (
-        <div className="global-toast-container">
-          <div className="toast-popup-banner">
-            <span className="toast-indicator-dot"></span>
-            <p className="toast-text-body">{toastMessage}</p>
+        <div className="pc-toast-container">
+          <div className="pc-toast-popup-banner">
+            <span className="pc-toast-indicator-dot"></span>
+            <p className="pc-toast-text-body">{toastMessage}</p>
           </div>
         </div>
       )}
