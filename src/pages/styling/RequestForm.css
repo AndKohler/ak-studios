@@ -3,14 +3,19 @@
   flex-direction: column;
   align-items: center;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   padding-top: 4rem;
+  box-sizing: border-box;
 }
 
 .rf-header {
   text-align: center;
   margin-bottom: 2rem;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .rf-title {
@@ -36,7 +41,7 @@
   max-width: 600px;
   margin: 0 auto;
   margin-top: 2rem;
-  padding: 0;
+  padding: 0 1rem;
 }
 
 .rf-form {
@@ -44,6 +49,8 @@
   padding: 2.5rem;
   border: 1px solid var(--border);
   border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .rf-group {
@@ -51,6 +58,8 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .rf-group label {
@@ -115,7 +124,7 @@
 
 .rf-file-btn {
   background: var(--accent);
-  color: #fff !important;;
+  color: #fff !important;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -127,6 +136,7 @@
   user-select: none;
   cursor: pointer;
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .rf-file-btn:hover {
@@ -137,6 +147,9 @@
   font-size: 0.9rem;
   color: var(--text-muted);
   user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rf-file-help {
@@ -218,9 +231,25 @@
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   transition: opacity 0.2s;
+  flex-shrink: 0;
 }
 
 .rf-file-clear-btn:hover {
   opacity: 0.8;
   text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  .rf-page-layout {
+    padding-top: 2rem;
+  }
+  .rf-form {
+    padding: 1.5rem;
+  }
+  .rf-title {
+    font-size: 1.6rem;
+  }
+  .rf-subtitle {
+    font-size: 1rem;
+  }
 }
