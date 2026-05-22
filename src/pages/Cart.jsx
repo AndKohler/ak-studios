@@ -21,7 +21,7 @@ export const Cart = ({ cartItems = [], onUpdateQuantity, onRemoveItem, setCurren
             {cartItems.map((item) => (
               <div key={item.id} className="ct-item-row">
                 <div className="ct-item-thumb-wrapper">
-                  <img src={item.galleryImages[0].fit} alt={item.name} className="ct-item-thumb" />
+                  <img src={item.galleryImages[0]} alt={item.name} className="ct-item-thumb" />
                 </div>
                 
                 <div className="ct-item-details">
@@ -30,7 +30,6 @@ export const Cart = ({ cartItems = [], onUpdateQuantity, onRemoveItem, setCurren
                 </div>
 
                 <div className="ct-item-right">
-                  {/* Trash Can Button positioned to the left of the black box */}
                   <button 
                     className="ct-remove-btn" 
                     onClick={() => onRemoveItem(item.id)}
@@ -56,7 +55,10 @@ export const Cart = ({ cartItems = [], onUpdateQuantity, onRemoveItem, setCurren
               <span>Total:</span>
               <span className="ct-summary-total-price">${totalCartPrice.toFixed(2)}</span>
             </div>
-            <button className="ct-action-button ct-checkout-btn">
+            <button 
+              className="ct-action-button ct-checkout-btn"
+              onClick={() => setCurrentPage('checkout')}
+            >
               Continue to Checkout
             </button>
           </div>

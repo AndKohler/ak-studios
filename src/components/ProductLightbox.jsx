@@ -17,7 +17,7 @@ export const ProductLightbox = ({ isOpen, images, currentIdx, name, onNext, onPr
           onTouchEnd={onTouchEnd}
         >
           <img 
-            src={images[currentIdx].full} 
+            src={images[currentIdx]} 
             alt={name} 
             className="lb-image lb-clickable" 
             onClick={onClose}

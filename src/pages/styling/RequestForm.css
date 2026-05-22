@@ -86,6 +86,65 @@
   resize: vertical;
 }
 
+.rf-hidden-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.rf-file-dropzone {
+  display: flex;
+  align-items: center;
+  background: #000 !important;
+  border: 1px dashed var(--border);
+  padding: 1rem;
+  border-radius: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.rf-file-dropzone:focus-within {
+  border-color: var(--accent);
+}
+
+.rf-file-btn {
+  background: var(--accent);
+  color: #fff !important;;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-right: 1rem;
+  transition: filter 0.2s;
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.rf-file-btn:hover {
+  filter: brightness(1.15);
+}
+
+.rf-file-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.rf-file-help {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
 .rf-action-button {
   width: 100%;
   background: var(--accent);
@@ -125,4 +184,43 @@
 
 .rf-action-button:hover::after {
   left: 200%;
+}
+
+.rf-error-text {
+  color: #ff4d4f;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  letter-spacing: 0.01em;
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.rf-form .rf-group input.rf-input-error,
+.rf-form .rf-group textarea.rf-input-error {
+  border-color: #ff4d4f;
+}
+
+.rf-form .rf-group input.rf-input-error:focus,
+.rf-form .rf-group textarea.rf-input-error:focus {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 1px #ff4d4f;
+}
+
+.rf-file-clear-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #ff4d4f;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.rf-file-clear-btn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }

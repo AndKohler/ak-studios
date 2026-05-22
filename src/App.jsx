@@ -4,6 +4,7 @@ import { Shop } from './pages/Shop';
 import { Gallery } from './pages/Gallery';
 import { RequestForm } from './pages/RequestForm';
 import { Cart } from './pages/Cart';
+import { Checkout } from './pages/Checkout';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('shop');
@@ -37,7 +38,12 @@ function App() {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  const handleClearCart = () => {
+    setCart([]);
+  };
+
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const totalCartPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   return (
     <>
@@ -57,6 +63,14 @@ function App() {
             onUpdateQuantity={handleUpdateQuantity}
             onRemoveItem={handleRemoveItem} 
             setCurrentPage={setCurrentPage} 
+          />
+        )}
+        {currentPage === 'checkout' && (
+          <Checkout 
+            cartItems={cart}
+            totalCartPrice={totalCartPrice}
+            onClearCart={handleClearCart}
+            setCurrentPage={setCurrentPage}
           />
         )}
       </main>

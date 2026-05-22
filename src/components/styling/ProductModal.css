@@ -12,65 +12,67 @@
   align-items: center;
   z-index: 100000;
   animation: fadeIn 0.2s ease-out;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .pm-window {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  max-width: 850px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
   border-radius: 16px;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pm-close-btn {
   position: absolute;
-  top: 1.25rem;
-  right: 1.5rem;
-  background: none;
+  top: 1rem;
+  right: 1.25rem;
+  background: rgba(0, 0, 0, 0.5);
   border: none;
-  color: var(--text-muted);
-  font-size: 2rem;
+  color: var(--text-main);
+  font-size: 1.75rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s;
 }
 
 .pm-close-btn:hover {
-  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .pm-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
 }
 
 .pm-info-panel {
-  display: block;
   box-sizing: border-box;
-  height: 100%;
-  overflow: hidden;
+  width: 100%;
 }
 
 .pm-panel-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   box-sizing: border-box;
   padding: 1.5rem;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
 }
 
 .pm-text-content {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-  overflow-y: auto;
-  padding-right: 4px;
+  margin-bottom: 1.5rem;
 }
 
 .pm-category {
@@ -84,18 +86,18 @@
 }
 
 .pm-product-name {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 0.5rem;
 }
 
 .pm-product-price {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: #00a86b;
   display: block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .pm-product-description {
@@ -107,8 +109,7 @@
 .pm-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: auto;
-  flex-shrink: 0;
+  width: 100%;
 }
 
 .pm-action-button {
@@ -116,7 +117,7 @@
   background: var(--accent);
   color: #ffffff;
   border: none;
-  padding: 1.1rem;
+  padding: 1rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -150,6 +151,55 @@
 
 .pm-action-button:hover::after {
   left: 200%;
+}
+
+@media (min-width: 769px) {
+  .pm-window {
+    max-width: 850px;
+    overflow-y: hidden;
+  }
+
+  .pm-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: stretch;
+  }
+
+  .pm-close-btn {
+    background: none;
+    color: var(--text-muted);
+    top: 1.25rem;
+    right: 1.5rem;
+  }
+
+  .pm-close-btn:hover {
+    background: none;
+    color: var(--text-main);
+  }
+
+  .pm-info-panel {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .pm-panel-wrapper {
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .pm-text-content {
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .pm-product-name {
+    font-size: 2rem;
+  }
+
+  .pm-product-price {
+    margin-bottom: 1.5rem;
+  }
 }
 
 @keyframes slideUp {
