@@ -16,7 +16,6 @@ export const Navbar = ({ currentPage, setCurrentPage, cartCount }) => {
           AK <span>STUDIOS</span>
         </div>
 
-        {/* Right side container to align Mobile Cart & Hamburger nicely */}
         <div className="nb-mobile-controls">
           <button 
             className={`nb-mobile-cart-btn ${currentPage === 'cart' ? 'nb-active' : ''}`}
@@ -38,7 +37,6 @@ export const Navbar = ({ currentPage, setCurrentPage, cartCount }) => {
           </button>
         </div>
 
-        {/* Desktop Links (Cart is hidden here on mobile) */}
         <div className={`nb-nav-links ${isOpen ? 'nb-nav-active' : ''}`}>
           <button 
             className={`nb-nav-btn ${currentPage === 'shop' ? 'nb-active' : ''}`}

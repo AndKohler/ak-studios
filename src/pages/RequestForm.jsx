@@ -2,13 +2,11 @@ import { useState, useRef } from 'react';
 import './styling/RequestForm.css';
 
 export const RequestForm = () => {
-  // Input fields state
   const [modelName, setModelName] = useState('');
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   
-  // Ref to clear the HTML input element directly
   const fileInputRef = useRef(null);
 
   const [errors, setErrors] = useState({
@@ -93,7 +91,6 @@ export const RequestForm = () => {
       <div className="rf-form-container">
         <form className="rf-form" onSubmit={handleSubmit} noValidate>
           
-          {/* Model Name Field */}
           <div className="rf-group">
             <label>MODEL NAME</label>
             <input 
@@ -106,7 +103,6 @@ export const RequestForm = () => {
             {errors.modelName && <span className="rf-error-text">{errors.modelName}</span>}
           </div>
 
-          {/* Email Address Field */}
           <div className="rf-group">
             <label>EMAIL ADDRESS</label>
             <input 
@@ -119,7 +115,6 @@ export const RequestForm = () => {
             {errors.email && <span className="rf-error-text">{errors.email}</span>}
           </div>
 
-          {/* Description Field */}
           <div className="rf-group">
             <label>DESCRIBE SCHEME & DETAILS</label>
             <textarea 
@@ -131,14 +126,11 @@ export const RequestForm = () => {
             {errors.description && <span className="rf-error-text">{errors.description}</span>}
           </div>
 
-          {/* Image Upload Field */}
           <div className="rf-group">
             <label>REFERENCE IMAGE (OPTIONAL)</label>
             
-            {/* CHANGED: Container is now a div, not a label */}
             <div className="rf-file-dropzone">
               
-              {/* CHANGED: Only this button acts as the label triggering the file explorer */}
               <label htmlFor="rf-file-upload" className="rf-file-btn">
                 Choose File
               </label>
