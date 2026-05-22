@@ -8,9 +8,20 @@ export const Shop = ({ cart = [], onAddToCart }) => {
 
   return (
     <div className="shop-container">
+      <div className="demo-banner">
+        <span className="status-dot-wrapper">
+          <span className="status-dot-ping"></span>
+          <span className="status-dot-core"></span>
+        </span>
+        <span className="demo-text">Demo Site only.</span>
+      </div>
+
       <header className="shop-header">
+        <h1 className="shop-title-hero">
+          Fully painted miniatures & scale models. 
+        </h1>
         <p className="shop-subtitle-hero">
-          Fully painted miniatures, completely finished and ready to ship out right away.
+          Completely finished and ready to ship out right away.
         </p>
       </header>
 

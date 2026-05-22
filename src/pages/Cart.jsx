@@ -21,7 +21,7 @@ export const Cart = ({ cartItems = [], onUpdateQuantity, onRemoveItem, setCurren
             {cartItems.map((item) => (
               <div key={item.id} className="ct-item-row">
                 <div className="ct-item-thumb-wrapper">
-                  <img src={item.galleryImages[0]} alt={item.name} className="ct-item-thumb" />
+                  <img src={item.cardImage} alt={item.name} className="ct-item-thumb" />
                 </div>
                 
                 <div className="ct-item-details">
@@ -41,7 +41,12 @@ export const Cart = ({ cartItems = [], onUpdateQuantity, onRemoveItem, setCurren
                   <div className="ct-qty-controls">
                     <button onClick={() => onUpdateQuantity(item.id, -1)}>-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => onUpdateQuantity(item.id, 1)}>+</button>
+                    <button 
+                      onClick={() => onUpdateQuantity(item.id, 1)}
+                      disabled={item.quantity >= item.stock}
+                    >
+                      +
+                    </button>
                   </div>
                   
                   <span className="ct-item-price">${(item.price * item.quantity).toFixed(2)}</span>

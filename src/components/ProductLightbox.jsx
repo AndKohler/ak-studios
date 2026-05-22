@@ -3,6 +3,10 @@ import './styling/ProductLightbox.css';
 export const ProductLightbox = ({ isOpen, images, currentIdx, name, onNext, onPrev, onSelectIdx, onTouchStart, onTouchEnd, onClose }) => {
   if (!isOpen) return null;
 
+  // Safely grab the current image URL string from the object structure
+  const currentImageObj = images?.[currentIdx];
+  const imageSrc = currentImageObj?.full || currentImageObj?.fit || currentImageObj;
+
   return (
     <div className="lb-overlay" onClick={onClose}>
       <div className="lb-window" onClick={(e) => e.stopPropagation()}>
@@ -16,12 +20,14 @@ export const ProductLightbox = ({ isOpen, images, currentIdx, name, onNext, onPr
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
-          <img 
-            src={images[currentIdx]} 
-            alt={name} 
-            className="lb-image lb-clickable" 
-            onClick={onClose}
-          />
+          {imageSrc && (
+            <img 
+              src={imageSrc} 
+              alt={name} 
+              className="lb-image lb-clickable" 
+              onClick={onClose}
+            />
+          )}
           
           {images.length > 1 && (
             <>

@@ -24,7 +24,10 @@ export const ProductCard = ({ product, cartQuantity, onAddToCart }) => {
         </div>
 
         <div className="pc-content-simple">
-          <h3 className="pc-product-name-simple">{product.name}</h3>
+          <div className="pc-title-block">
+            <span className="pc-product-category">{product.category}</span>
+            <h3 className="pc-product-name-simple">{product.name}</h3>
+          </div>
           <span className="pc-product-price-simple">${product.price.toFixed(2)}</span>
         </div>
       </div>

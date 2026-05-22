@@ -86,9 +86,9 @@
 }
 
 .pm-product-name {
-  font-size: 1.75rem;
-  font-weight: 900;
-  letter-spacing: -0.03em;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
 }
 
@@ -104,6 +104,26 @@
   color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+.pm-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.pm-stock-status {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-align: right;
+}
+
+.pm-stock-count {
+  color: var(--accent);
 }
 
 .pm-actions {
@@ -194,7 +214,7 @@
   }
 
   .pm-product-name {
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 
   .pm-product-price {

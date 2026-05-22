@@ -46,7 +46,7 @@ export const ProductModal = ({ isOpen, onClose, product, cartQuantity = 0, onAdd
 
   const handleAddToCartClick = (e) => {
     e.stopPropagation();
-    if (!product.isAvailable) return;
+    if (!product.isAvailable || product.stock === 0 || cartQuantity >= product.stock) return;
     
     const qtyToAdd = qty - cartQuantity;
     if (qtyToAdd !== 0 || cartQuantity === 0) {
@@ -61,6 +61,19 @@ export const ProductModal = ({ isOpen, onClose, product, cartQuantity = 0, onAdd
     setCurrentImgIndex(0);
     onClose();
   };
+
+  const isMaxEDOut = cartQuantity >= product.stock;
+  
+  let buttonText = 'Sold Out';
+  if (product.isAvailable && product.stock > 0) {
+    if (isMaxEDOut) {
+      buttonText = 'In Cart';
+    } else if (cartQuantity > 0) {
+      buttonText = 'Update Cart';
+    } else {
+      buttonText = 'Add to Cart';
+    }
+  }
 
   return (
     <>
@@ -90,20 +103,30 @@ export const ProductModal = ({ isOpen, onClose, product, cartQuantity = 0, onAdd
                   <p className="pm-product-description">{product.description}</p>
                 </div>
 
-                <div className="pm-actions">
-                  <div className="ct-qty-controls">
-                    <button onClick={() => setQty(Math.max(1, qty - 1))}>-</button>
-                    <span>{qty}</span>
-                    <button onClick={() => setQty(Math.min(10, qty + 1))}>+</button>
+                <div className="pm-actions-container">
+                  {product.isAvailable && product.stock > 0 && (
+                    <div className="pm-stock-status">
+                      Available: <span className="pm-stock-count">{product.stock} {product.stock === 1 ? 'unit' : 'units'}</span>
+                    </div>
+                  )}
+
+                  <div className="pm-actions">
+                    {product.isAvailable && product.stock > 1 ? (
+                      <div className="ct-qty-controls">
+                        <button onClick={() => setQty(Math.max(1, qty - 1))}>-</button>
+                        <span>{qty}</span>
+                        <button onClick={() => setQty(Math.min(product.stock, qty + 1))}>+</button>
+                      </div>
+                    ) : null}
+                    
+                    <button 
+                      onClick={handleAddToCartClick} 
+                      className="pm-action-button"
+                      disabled={!product.isAvailable || product.stock === 0 || isMaxEDOut}
+                    >
+                      {buttonText}
+                    </button>
                   </div>
-                  
-                  <button 
-                    onClick={handleAddToCartClick} 
-                    className="pm-action-button"
-                    disabled={!product.isAvailable}
-                  >
-                    {product.isAvailable ? (cartQuantity > 0 ? 'Update Cart' : 'Add to Cart') : 'Sold Out'}
-                  </button>
                 </div>
               </div>
             </div>
